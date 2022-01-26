@@ -21,7 +21,7 @@
 - [Getting type information from a variable](#getting-type-information-from-a-variable)
 - [Casting](#casting)
 - [Comparing and juggling types](#comparing-and-juggling-types)
-- [Strict types mode](#strict-types-mode)
+- [Strict types](#strict-types)
 - [Dealing with nulls](#dealing-with-nulls)
 
 

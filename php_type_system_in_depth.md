@@ -150,6 +150,7 @@ Especially if done since the start of a project, any time taken adding types, or
 
 ## Built-in typehints
 
+[Types declaration on the PHP manual.](https://www.php.net/manual/en/language.types.declarations.php#language.types.declarations).
 
 ### Scalar typehints
 
@@ -183,7 +184,7 @@ This example also feature implicit and explicit [casting](#casting).
 
 ### Compound typehints
 
-**`iterable`** is a typehint that will match an array or an  object that implement the `\Traversable` interface, it is equivalent to the `array|\Traversable` union.  
+**`iterable`** is a typehint that will match an array or an  object that implement the [`\Traversable`](https://www.php.net/manual/en/class.traversable) interface, it is equivalent to the `array|\Traversable` union.  
 With this typehint, you know that the value is something that you can iterate over with `foreach()` for instance.
 
 The **`callable`** typehint ensure that the value is a valid [callable](https://www.php.net/manual/en/language.types.callable.php) **in the context of the variable**.  
@@ -196,7 +197,7 @@ The closest union you can use instead is `array|object|string`, but you may ques
 
 ### Return only typehints
 
-Three typehints can only be used as the return typehint of a function, and can't be used with properties and arguments.
+Three typehints can only be used [as the return typehint](https://www.php.net/manual/en/language.types.declarations.php#language.types.declarations.return-only) of a function, and can't be used with properties and arguments.
 
 **`void`** is used to indicates that the function never return anything, even `null`.  
 
@@ -226,7 +227,7 @@ Also, complex arrays may be good candidates to be refactored to value objects or
 **`mixed`**: added in PHP8.0, this is a compound type equivalent to `array|bool|int|float|null|object|resource|string`, which match **everything including `null`**.  
 The point of it is for the reader not to have to wonder if the typehint was just omitted, or for the cases where truly all the types can be passed.
 
-**`null`** and **`?`**: PHP7.1 added **nullable typehints**, which allow values to be of the specified type(s), or `null`.  
+**`null`** and **`?`**: PHP7.1 added [**nullable typehints**](https://www.php.net/manual/en/language.types.declarations.php#language.types.declarations.nullable), which allow values to be of the specified type(s), or `null`.  
 It has two form, either `null` when used as part of a union type, of the short form `?` that precede a single typehint.  
 
 There is also an **implicit** third form for arguments, when their default value is `null`. Then you can pass `null` to the argument even if the typehint is not expressly nullable.  
@@ -462,7 +463,7 @@ foo2(1); // PHP Fatal error:  Uncaught TypeError: foo2(): Argument #1 ($bar) mus
 
 ## Numeric strings
 
-A numeric string is a string that only contains something that looks like a number:
+A [numeric string](https://www.php.net/manual/en/language.types.numeric-strings.php) is a string that only contains something that looks like a number:
 
 - a regular `int`
 - a `float` with the dot separator
@@ -492,7 +493,7 @@ foo((int) '123 A'); // int(123)
 
 ## Union and intersection types
 
-For the situations where the value can be of one of several types, it is possible to list them all, not just one by separating them with the unary or operator `|` like it is in several examples above.
+For the situations where the value can be of one of several types, it is possible to list them all [in a union](https://www.php.net/manual/en/language.types.declarations.php#language.types.declarations.composite.union), not just one by separating them with the unary or operator `|` like it is in several examples above.
 
 Intersection types are for the situation where a value must be of several types at the same time, which can only happen for objects. Intersection types use the `&` operator and are naturally limited to class names and are not nullable.
 
@@ -525,11 +526,11 @@ Others are:
 
 When instead you want to get the name of the type of a variable, the `get_debug_type()` or `gettype()` functions can be used.
 
-**`get_debug_type(mixed $value): string`** is typically the more pertinent to use, but is only available since PHP.0.  
+**[`get_debug_type(mixed $value): string`](https://www.php.net/manual/en/function.get-debug-type)** is typically the more pertinent to use, but is only available since PHP.0.  
 It returns the name of the value's type as a string (`null`, `bool`, `int`, `float`, `string`, `array`), but when the value is an object or an enum it returns the class/enum name, or when it is a resource it returns also the resource name `resource (resourcename)`, or its closed state `resource (closed)`.
 
 
-Before PHP8.0, only **`gettype(mixed $value): string`** (yes, without underscore) was available.  
+Before PHP8.0, only **[`gettype(mixed $value): string`](https://www.php.net/manual/en/function.gettype.php)** (yes, without underscore) was available.  
 It also returns the value's type as a string, but using a legacy longform version of the name (`NULL`, `boolean`, `integer`, `double`, `string`, `array`, `unknown type`, `object`, `resource` or `resource (closed)`).  
 When the value is an object (or an enum), it just return `object`. So if you want to also get the class name, you must call separately `get_class(object $object): string` (or if on PHP8.0+ use the `$object::class` magic constant).
 
@@ -537,14 +538,14 @@ When the value is an object (or an enum), it just return `object`. So if you wan
 
 To check if an object is of a certain class name (or one of its children) a few more functions can be used:
 
-- `is_a()` that can be used in two ways : `is_a(object $object, string $className): bool` or `is_a(string $className, string $className, true): bool` returns true if the object or class name passed as first argument is an instance of the class name passed as second argument, or one of its children
-- it's quite rare to see the `is_a()` function in the wild nowadays because the equivalent `instanceof` operator is a lot more used instead of the first usage when the compared value is an instance : `$object instanceof $className` is the same as `is_a($object, $className)`. The operator returns `false` is the left-hand value is anything else than an object. Note on the syntax of the operator that the right-hand value is either a variable that contain the FQCN of the class, or just the classname (like in a typehint), without the `::class` magic constant.
-- to specifically check if a value is a subclass (a children) of another, then the `is_subclass_of()` function can be used, with the same signature as `is_a()`
+- [`is_a()`](https://www.php.net/manual/en/function.is-a) that can be used in two ways : `is_a(object $object, string $className): bool` or `is_a(string $className, string $className, true): bool` returns true if the object or class name passed as first argument is an instance of the class name passed as second argument, or one of its children
+- it's quite rare to see the `is_a()` function in the wild nowadays because the equivalent [`instanceof` operator](https://www.php.net/manual/en/language.operators.type.php) is a lot more used instead of the first usage when the compared value is an instance : `$object instanceof $className` is the same as `is_a($object, $className)`. The operator returns `false` is the left-hand value is anything else than an object. Note on the syntax of the operator that the right-hand value is either a variable that contain the FQCN of the class, or just the classname (like in a typehint), without the `::class` magic constant.
+- to specifically check if a value is a subclass (a children) of another, then the [`is_subclass_of()`](https://www.php.net/manual/en/function.is-subclass-of.php) function can be used, with the same signature as `is_a()`
 
 
 ## Casting
 
-**Casting** is changing the type of a value to another type.
+**[Casting](https://www.php.net/manual/en/language.types.type-juggling.php#language.types.typecasting)** is changing the type of a value to another type.
 
 First, you can cast scalar types to other scalar types, with the exception of non-numeric strings that can not be automatically casted to int or float (but they can be explicitly casted).
 
@@ -610,7 +611,7 @@ $array = array_map(fn (int $value): string => $value, $array);
 
 ## Comparing and juggling types
 
-**Type juggling** is automatic casting that happens when a statement is working with different types, like comparing, adding, concatenating different types.
+**[Type juggling](https://www.php.net/manual/en/language.types.type-juggling.php)** is automatic casting that happens when a statement is working with different types, like comparing, adding, concatenating different types.
 
 
 Like JavaScript, PHP has two different equality operators: `==` and `===` (as well as `!=` and `!==`).
@@ -633,13 +634,15 @@ in_array('0', ['0000']) // true
 in_array('0', ['0000'], true) // false
 ```
 
+The PHP manual [has a whole page with tables](https://www.php.net/manual/en/types.comparisons.php) for comparing comparison with `==`, `===` and functions like `gettype()`, `isset()`, `empty()`, etc...
+
 ## Strict types
 
 As we have seen above values can be automatically casted in multiple situations.  
 Two of these are during a function call when a value is passed to a typed parameter, and when a function that has a return typehint returns a value.
 
 This is the default behavior and is known as "weak types" mode.  
-But, introduced in PHP7.0 at the same time as the scalar typehints, there is also a **strict types** mode, that specifically prevent these two behaviors (and only theses).
+But, introduced in PHP7.0 at the same time as the scalar typehints, there is also a [**strict types** mode](https://www.php.net/manual/en/language.types.declarations.php#language.types.declarations.strict), that specifically prevent these two behaviors (and only theses).
 
 The strict types mode can be activated on a per-file basis by adding the `declare(strict_types=1);` directive as the very first line in the file after the PHP opening tag.
 
@@ -706,7 +709,7 @@ It can also be expressly casted to an empty array or `stdClass` instance.
 
 `null` is the default value for un-typed properties that have no explicit default initializers.
 
-Checking if a variable is `null` can be done with the `is_null(mixed $value): bool` function, the strict equality operator, or the `isset(mixed $value): bool` and `empty(mixed $value): bool` constructs:
+Checking if a variable is `null` can be done with the [`is_null(mixed $value): bool`](https://www.php.net/manual/en/function.is-null) function, the strict equality operator, or the [`isset(mixed $value): bool`](https://www.php.net/manual/en/function.isset) and [`empty(mixed $value): bool`](https://www.php.net/manual/en/function.empty) constructs:
 ```php
 $nullVariable = null;
 
@@ -734,7 +737,7 @@ new stdClass == null // false
 The `isset()` construct is also most frequently used to check if an array contains a particular key.  
 However it will return `false` even when the array key does exists but with `null` as its value.  
 
-In the cases where you need to check that the array has a key, even when the value is `null`, you can use the `array_key_exists(int|string $key, array $array): bool` function.
+In the cases where you need to check that the array has a key, even when the value is `null`, you can use the [`array_key_exists(int|string $key, array $array): bool`](https://www.php.net/manual/en/function.array-key-exists) function.
 
 ```php
 $array = [

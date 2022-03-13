@@ -29,13 +29,13 @@ This repo contains what I hope is a decent description of all aspects of **PHP 8
 
 <br>
 
-- [Tools for static analysis](tools_for_static_analysis.md) TODO
+- [Tools for static analysis](tools_for_static_analysis.md)
 	- [PHPDocs](tools_for_static_analysis.md#phpdocs)
 		- [Type related tags](tools_for_static_analysis.md#type-related-tags)
 	- [Static analysers](tools_for_static_analysis.md#static-analysers)
 		- [Custom PHPDoc types](tools_for_static_analysis.md#custom-phpdoc-types)
-		- [Generics](tools_for_static_analysis.md#generics) (TODO)
-		- [PHPStan](tools_for_static_analysis.md#phpstan) (TODO)
+		- [Generics](tools_for_static_analysis.md#generics)
+		- [PHPStan](tools_for_static_analysis.md#phpstan)
 	- [Tools to helps with PHPDocs and typehints](tools_for_static_analysis.md#tools-to-helps-with-phpdocs-and-typehints)
 		- [PHP CS Fixer](tools_for_static_analysis.md#php-cs-fixer)
 		- [Rector](tools_for_static_analysis.md#rector)

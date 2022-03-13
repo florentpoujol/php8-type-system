@@ -6,8 +6,8 @@
 	- [Type related tags](#type-related-tags)
 - [Static analysers](#static-analysers)
 	- [Custom PHPDoc types](#custom-phpdoc-types)
-	- [Generics](#generics) (TODO)
-	- [PHPStan](#phpstan) (TODO)
+	- [Generics](#generics)
+	- [PHPStan](#phpstan)
 - [Tools to helps with PHPDocs and typehints](#tools-to-helps-with-phpdocs-and-typehints)
 	- [PHP CS Fixer](#php-cs-fixer)
 	- [Rector](#rector)
@@ -15,10 +15,10 @@
 
 ## PHPDocs
 
-PHPDocs are a way to add metadata about the code via some DocBlocks, structured comments that begins by `/**`, that contain tags, keyword that begins by `@`.  
+PHPDocs are a way to add metadata about the code via some **DocBlocks**, structured comments that begins by `/**`, that contain **tags**, keyword that begins by `@`.  
 Since they are comments they are completely ignored by PHP itself and are only meant to be read by humans and static analysers.
 
-PHPDocs have a lot more usages that the tags related to typings, and they allowed to type variables, arguments, return value and properties long before the PHP type system existed.  
+PHPDocs have a lot more usages than the tags related to typings, and they allowed to type variables, arguments, return value and properties long before the PHP type system existed.  
 But even if today some can be replaced by typehints, most PHPDocs remains pertinent because they allow to extend the built-in type system to be more precise.
 
 Also since they are comments and do not require any changes to the language, PHPDocs are very evolutive and any tools can just "invent" new tags or interpret existing one in a different way.  
@@ -62,7 +62,7 @@ function intToString($value)
 
 It is also possible to "extends" a class by defining properties and methods via PHPDocs.
 
-**@property** is used over a class to declare a property on that class. There is also two tags for read-only or even write-only properties: **@property-read**and **@property-write**. These properties are always assumed public and can be made static if the tag is immediately followed by the `static` keyword.
+**@property** is used over a class to declare a property on that class. There is also two tags for read-only or even write-only properties: **@property-read** and **@property-write**. These properties are always assumed public and can be made static if the tag is immediately followed by the `static` keyword.
 
 ```php
 /**
@@ -121,15 +121,17 @@ $bar->foobar();
 
 ### Custom PHPDoc types
 
+Static analysers define their own new tags and/or understand "extended" usages of existing tags.
+
 In this section we will list all type you can use via PHPDocs and can be understood by PHPStan. Other tools like Psalm may define some others.
 
 All PHP's built-in typehint as well as all classes can be used as PHPDocs.
 
-**class-string**: the value must be a string that match an existing fully qualified class name. Even whe not using generics, you can express the class name between brackets : `class-string<\App\MyClass>`
+**class-string**: the value must be a string that match an existing fully qualified class name. Even when not using generics, you can express the class name between brackets : `class-string<\App\MyClass>`
 
 Other string specific variant exists : `callable-string` (match a callable but only as a string, so functions and static classes), `numeric-string`, and `non-empty-string`
 
-**resource**: resource is actually a type a variable can have in PHP, but it's a legacy type that represent basically stream/file pointers and are progressively replaced by actual objects, so there will never be a matching typehint.
+**resource**: resource is actually the type a variable can have in PHP, but it's a legacy type that represent basically stream/file pointers and are progressively replaced by actual objects, so there will never be a matching typehint.
 
 **true** and **false**: false is a typehint but that can only be used as return type, but for the rare situations you need them, you can used them as PHPDocs
 
@@ -154,8 +156,6 @@ final class Foo
 ```
 
 When a value is a callable, not only it is possible to use the simple callable PHPDocs especially on properties that can't use the typehint, you can also define callable signature like you would for method with the `@method` tag.
-
-
 
 
 ### Generics
@@ -229,19 +229,24 @@ But during the PHP5 time, where only the `array` and later the `callable` typehi
 And yet scalar and return typehints were there in PHP7.0, and in a sense kickstarted the move toward a more complete type system that almost every new minor and major version until them contributed to.
 
 So who knows ? Many generics will be the flagship feature for PHP9.0 after all ?
-Or we will find that with full-time developer to work on the core (paid by the PHP Foundation), it is actually more pertinent to implement them in a minor release until that...
+Or we will find that with full-time developer to work on the core (paid by [the PHP Foundation](https://opencollective.com/phpfoundation)), it is actually more pertinent to implement them in a minor release until that...
 
 THanksfull this chapter doesn't end there and generics can actually be used today, through PHPDocs and static analysers.
 
-TODO
+TODO (in the meantime, see theses links):
+- [Generics in PHP using PHPDocs, in PHPStan's blog (from 2019)](https://phpstan.org/blog/generics-in-php-using-phpdocs) 
+- [Template annotation, in Psalm documentation](https://psalm.dev/docs/annotating_code/templated_annotations/)  
+- [See also the Generics section is the references](references.md#generics) 
+
 
 ### PHPStan
 
-TODO
+TODO (see https://phpstan.org/user-guide/getting-started for now)
+
 
 ## Tools to helps with PHPDocs and typehints
 
-Before we jump in the static analysers themselves, there are other tools that will help you manage PHPDocs, typehint, enforce the use of some features over others, and overall help make you code stricter.
+Beside the static analysers themselves, there are other tools that will help you manage PHPDocs, typehints, enforce the use of some features over others, and overall help make you code stricter.
 
 This is particularly useful on an existing codebase that needs modernising where doing all that especialy in a team can be extremely time consuming, or downright impossible.
 
@@ -249,12 +254,15 @@ But it is also useful on a newer codebase to keep consistent and easily keep-up 
 
 ### PHP CS Fixer
 
-[PHP CS Fixer]([website](https://cs.symfony.com)) is a popular tool to lint and fix coding standards.  
+[PHP CS Fixer](https://cs.symfony.com) is a popular tool to lint and fix coding standards.  
 
 Coding standards are about more that just visual style and can be about enforcing using some language features over others, which can helps to make our code stricter.
 
 PHP CS Fixer has [many built-in rules](https://cs.symfony.com/doc/rules/index.html), which a good number relates to types/typing.  
 Some are just about styling (like having a space or not between casts and the variables), but others will actually change to make use of newer features, or standardise how you do things (like how you check for `null` values, with `=== null` instead of `is_null()`).
+
+The rules in italic are considered **risky** because the modifications they make can actually cause bugs and runtime type errors, especially when used over an existing project.   
+That's why in the tool configuration, you have to explicitly allow to run risky rules, which is off by default.
 
 - Typehints
 	- [mark expressly nullable arguments with null default value](https://cs.symfony.com/doc/rules/function_notation/nullable_type_declaration_for_default_null_value.html): add or remove the nullable operator (`?`) on arguments that have `null` as default value (that are implicitly nullable)
@@ -292,18 +300,10 @@ Some are just about styling (like having a space or not between casts and the va
 - PHPUnit
 	- *[PHPUnit strict](https://cs.symfony.com/doc/rules/php_unit/php_unit_strict.html)*: use PHPUnit's `assertSame()` instead of `assertEquals()` to do strict comparisons instead of a loose ones
 
-The rules in italic are considered **risky** because the modifications they make can actually cause bugs and runtime type errors, especially when used over an existing project. 
-
-That's why in the tool configuration, you have to explicitly allow to run risky rules, which is off by default.
 
 It is then up to you to not blindly trust the modifications made by the tool but complete them with careful code review, static analysis and tests to make sure the code still works.
 
 PHP CS Fixer has many other non-type related rules, but you can also [create your own rules](https://cs.symfony.com/doc/custom_rules.html) if you are not satisfied with the existing ones.
-
-
-
-
-
 
 
 ### Rector
@@ -319,25 +319,23 @@ Other rule sections are not dedicated to type-related rules but still contain se
 
 - Code quality
 	- [CountArrayToEmptyArrayComparisonRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#countarraytoemptyarraycomparisonrector): replace usage of the `count()` function on array to comparison to and empty array
-	- [NullableCompareToNullRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#nullablecomparetonullrector)
-	- [StrictArraySearchRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#strictarraysearchrector)
-	- [VarConstantCommentRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#varconstantcommentrector)
+	- [NullableCompareToNullRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#nullablecomparetonullrector): changes negate of empty comparison of nullable value to explicit `===` or `!==` compare
+	- [StrictArraySearchRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#strictarraysearchrector): makes `array_search()` search for identical elements
+	- [VarConstantCommentRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#varconstantcommentrector): constant should have a `@var` comment with type
 - Coding style
-	- [IntvalToTypeCastRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#intvaltotypecastrector)
-	- [NewStaticToNewSelfRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#newstatictonewselfrector)
-	- [ReplaceMultipleBooleanNotRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#replacemultiplebooleannotrector)
-	- [SetTypeToCastRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#settypetocastrector)
-	- [SimplifyEmptyArrayCheckRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#simplifyemptyarraycheckrector)
-	- [StrlenZeroToIdenticalEmptyStringRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#strlenzerotoidenticalemptystringrector)
-	- [UseIdenticalOverEqualWithSameTypeRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#useidenticaloverequalwithsametyperector)
+	- [IntvalToTypeCastRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#intvaltotypecastrector): change `intval()` to faster and readable `(int) $value`
+	- [NewStaticToNewSelfRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#newstatictonewselfrector): change unsafe new `static()` to new `self()`
+	- [ReplaceMultipleBooleanNotRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#replacemultiplebooleannotrector): replace the Double not operator (`!!`) by type-casting to boolean
+	- [SetTypeToCastRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#settypetocastrector): changes `settype()` to `(type)` where possible
+	- [SimplifyEmptyArrayCheckRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#simplifyemptyarraycheckrector): simplify `is_array()` and `empty()` functions combination into a simple identical check for an empty array
+	- [StrlenZeroToIdenticalEmptyStringRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#strlenzerotoidenticalemptystringrector): changes `strlen()` comparison to 0 to direct empty string compare
+	- [UseIdenticalOverEqualWithSameTypeRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#useidenticaloverequalwithsametyperector): use `===`/`!==` over `==`/`!=`, it values have the same type
 - Dead code
-	- [RemoveConcatAutocastRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#removeconcatautocastrector)
-	- [RemoveNullPropertyInitializationRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#removenullpropertyinitializationrector)
-	- [RemoveUselessParamTagRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#removeuselessparamtagrector)
-	- [RemoveUselessReturnTagRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#removeuselessreturntagrector)
-	- [RemoveUselessVarTagRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#removeuselessvartagrector)
-
-
+	- [RemoveConcatAutocastRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#removeconcatautocastrector): remove `(string)` casting when it comes to concat, that does this by default
+	- [RemoveNullPropertyInitializationRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#removenullpropertyinitializationrector): remove initialization with `null` value from property declarations
+	- [RemoveUselessParamTagRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#removeuselessparamtagrector): remove `@param` docblock with same type as parameter type
+	- [RemoveUselessReturnTagRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#removeuselessreturntagrector): remove `@return` docblock with same type as defined in PHP
+	- [RemoveUselessVarTagRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#removeuselessvartagrector): remove unused `@var` annotation for properties
 
 
 ### Runtime assertions
@@ -364,7 +362,7 @@ PHP has a built-in `assert(bool $condition, string|Throwable $descriptionOrExcep
 The first argument should be an expression like in any condition.
 
 When the assertion fail, it will throw an `AssertionError`, optionally with the provided error message as second argument.  
-When the second argument is an exception, then this exception will be thrown instead of the `AssertionError`.
+When the second argument is an exception instance, then this exception will be thrown instead of the `AssertionError`.
 
 Examples: 
 ```php
@@ -376,7 +374,7 @@ assert(is_int($value), new TypeError('Value should be an int')); // PHP Fatal er
 ```
 
 The very interesting thing with built-in assertions is that it is possible to completely turn them off so that they have **zero** cost in production.  
-And when I say zero cost, I mean that the line will not even be compiled into opcode. So the whole line will not even exists in the code that actually run.
+And when I say zero cost, I mean that the line(s) will not even be compiled into opcode. So the whole assert exception will  just be replaced by empty lines in the code that actually run.
 
 This is controlled by the `zend.assertions` ini directive, that can not be changed at runtime (for the reason explained just above).  
 It should be `1` to enable assertions, or `0` to disable them.
@@ -393,7 +391,9 @@ Since you should turn them off in production, your code must work as intended wi
 
 The `assert()` function is built-in but also quite barebone.  
 
-If you have need for more expressive assertions and easier error messages, you can instead rely on two similar composer packages: https://github.com/beberlei/assert and https://github.com/webmozarts/assert.
+If you have need for more expressive assertions and easier error messages, you can instead rely on two similar composer packages: 
+- https://github.com/beberlei/assert 
+- https://github.com/webmozarts/assert
 
 They both provide a static class with a lot of assertion methods for many use cases and a default and customizable exception when the assertion(s) fails.
 
@@ -411,7 +411,4 @@ Assertion::date($value, $format, "The date '%s' is not in the right format '%s'"
 
 Both packages differ slightly on their usability and handling of error messages.  
 So check their readme for other features that just static checks as shown in the example and how you can customize the exception handling.
-
-
-
 

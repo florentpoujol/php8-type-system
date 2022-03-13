@@ -220,7 +220,7 @@ var_dump($bar); // null
 
 ### Others
 
-**`array`** : the first typehint beside class names, added in PHP5.1, the value must be an array.  
+**`array`** : this is the first typehint beside class names, added in PHP5.1. The value must be an array.  
 It is not possible to type the *content* of the array, the types of the keys and values, but that can be declared via PHPDocs, or the `ArrayShape` annotation within PHPStorm.  
 Also, complex arrays may be good candidates to be refactored to value objects or DTO with typed properties.
 
@@ -273,8 +273,8 @@ There is also a few built-in typehints :
 **`object`** : The value must be an instance of any class, which include enums and anonymous functions.  
 
 The three typehints below can only be used inside a class/interface/trait:
-- **`self`** means that the value must be an instance of that current class, or any of its children
-- **`static`** can only be used as a method return type and means that the value is the actual class the method is used on, taking late static binding into account
+- **`self`** means that the value must be an instance of the current class the typehint is located in, or any of its children
+- **`static`** can only be used as a method return type and means that the value is the actual class the method is used on, and unlike `self` takes late static binding into account
 - **`parent`** the value must be an instance of any parent of the class
 
 Examples: 
@@ -299,17 +299,17 @@ final class B extends A
 
 $b = new B();
 
-$self = $b->self(); // instance of B, but static analysers understands it only as instance of A, 
+$self = $b->self(); // returns an instance of B, but static analysers understands it only as instance of A, 
                     // because this is what the typehint literally says
 
-$static = $b->static(); // instance of B, and static analysers understands it as instance of B
+$static = $b->static(); // also returns an instance of B, and static analysers understands it as instance of B
 ```
 
 ### Types in inheritance
 
 PHP's inheritance model follows [Liskov's Substitution Principle](https://en.wikipedia.org/wiki/Liskov_substitution_principle), and as such method return types are **covariant**, arguments types are **contravariant** and properties types are **invariant**.
 
-What this means is actually simpler than what it looks like:
+What this means is actually simpler than what it sounds like:
 
 Overloaded method return types can be **the same** or become **stricter** (narrower) in children, than in their parent.  
 Or, **overloaded methods can have return types if the parents have none**.
@@ -318,7 +318,7 @@ Overloaded method arguments, *on the contrary*, can only be **the same** or beco
 When the parent has no typehint, the children can only gain the `mixed` typehint.  
 A *mandatory* argument in a parent can **become optional** in children, but the opposite is not true.
 
-Finally, properties are simpler since their type (whether they have one or not) **can not change at all** in children.
+Finally, properties are simpler since their type (whether they have one or not) **can't change at all** in children.
 
 A valid example: 
 ```php
@@ -335,11 +335,13 @@ abstract class A
 
 final class B extends A
 {
-	public int $property;
-	public $property2;
+	public int $property; // no change
+	public $property2; // no change
 
-	public function method(object $a, mixed $b = null): int
-	{
+	public function method(
+		object $a, // the type for $a is now wider since it accept any objects instead of just stdClass
+		mixed $b = null // $b still accept anything, but at least has a typehint now :), and is also now optionnal
+	): int { // the method has gained a strict return type
 		return 1;
 	}
 }
@@ -370,7 +372,7 @@ final class B extends A
 
 The `self` typehint can be used to represent the current class. In the example above, replacing both A and B by self would lead to the same invalid result.
 
-This however is valid because the type stays the same :
+This below however is valid because the type stays the same (which doesn't prevent to pass an instance of B to B's method):
 ```php
 abstract class A 
 {
@@ -391,8 +393,7 @@ final class B extends A
 
 ### Classes as method return types
 
-Contrary to arguments, since return types can become stricter in children, overloaded methods that return an instance of the own class can return `self` both in parent and children.
-
+Contrary to arguments, since return types can become stricter in children, overloaded methods that return an instance of the own class can return `self` both in parent and children :
 ```php
 abstract class A 
 {
@@ -410,6 +411,8 @@ final class B extends A
 	}
 }
 ```
+
+As we have seen in the other example above, A's method could have the `static` typehint so that B doesn't have to overload the method to update the typehint.
 
 ### Enums
 

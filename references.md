@@ -4,6 +4,7 @@
 - PHP manual and function reference: https://www.php.net/manual/en/ (also fully available in several other languages)
 - Language specification about types: https://github.com/php/php-langspec/blob/be010b4435e7b0801737bb66b5bbdd8f9fb51dde/spec/05-types.md
 
+
 ## Relevant pages in the manual
 
 - Types table of content : https://www.php.net/manual/en/language.types.php
@@ -70,11 +71,14 @@ Here are the types-related RFCs:
 
 ### Generics
 
+- [Generics in PHP using PHPDocs, in PHPStan's blog (from 2019)](https://phpstan.org/blog/generics-in-php-using-phpdocs) 
+- [Template annotation, in Psalm documentation](https://psalm.dev/docs/annotating_code/templated_annotations) 
 - https://wiki.php.net/rfc/generics
 - https://wiki.php.net/rfc/generic-arrays
 - https://externals.io/message/111875 A message from Brent Roose to the PHP core developper advocating for runtime-erased generics
 - https://www.reddit.com/r/PHP/comments/iuhtgd/ive_proposed_an_approach_to_generics_on_internals/ The same original message as above but on Reddit
 - https://github.com/PHPGenerics/php-generics-rfc/issues/45 Two comments by Nikita Popov
+- [Brent Roose Youtube video series about Generics](https://www.youtube.com/watch?v=c8hQ1fWU_mQ&list=PL0bgkxUS9EaKyOugEDffRzsvupBE2YEoD)
 
 ### Stitcher.io blog
 

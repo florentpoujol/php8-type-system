@@ -416,7 +416,7 @@ As we have seen in the other example above, A's method could have the `static` t
 
 ### Enums
 
-Brought by PHP8.0, [enums](https://www.php.net/manual/en/language.enumerations.php) are actually a special case of objects and their (class/enum) name can likewise be used as typehint.  
+Brought by PHP8.1, [enums](https://www.php.net/manual/en/language.enumerations.php) are actually a special case of objects and their (class/enum) name can likewise be used as typehint.  
 
 There is no generic `enum` typehint, but all enums match the **`\UnitEnum`** class that is the parent of all enums.  
 Backed enums, in addition, implement the **`\BackedEnum`** class (that extend `\UnitEnum`).
@@ -529,7 +529,7 @@ Others are:
 
 When instead you want to get the name of the type of a variable, the `get_debug_type()` or `gettype()` functions can be used.
 
-**[`get_debug_type(mixed $value): string`](https://www.php.net/manual/en/function.get-debug-type)** is typically the more pertinent to use, but is only available since PHP.0.  
+**[`get_debug_type(mixed $value): string`](https://www.php.net/manual/en/function.get-debug-type)** is typically the more pertinent to use, but is only available since PHP8.0.  
 It returns the name of the value's type as a string (`null`, `bool`, `int`, `float`, `string`, `array`), but when the value is an object or an enum it returns the class/enum name, or when it is a resource it returns also the resource name `resource (resourcename)`, or its closed state `resource (closed)`.
 
 

@@ -642,19 +642,23 @@ The PHP manual [has a whole page with tables](https://www.php.net/manual/en/type
 ## Strict types
 
 As we have seen above values can be automatically casted in multiple situations.  
-Two of these are during a function call when a value is passed to a typed parameter, and when a function that has a return typehint returns a value.
+Three of these are:
+- during a function call when a value is passed to a typed parameter
+- when a function that has a return typehint returns a value.
+- when a value is assigned to a typed class property
 
 This is the default behavior and is known as "weak types" mode.  
-But, introduced in PHP7.0 at the same time as the scalar typehints, there is also a [**strict types** mode](https://www.php.net/manual/en/language.types.declarations.php#language.types.declarations.strict), that specifically prevent these two behaviors (and only theses).
+But, introduced in PHP7.0 at the same time as the scalar typehints, there is also a [**strict types** mode](https://www.php.net/manual/en/language.types.declarations.php#language.types.declarations.strict), that specifically prevent these three behaviors (and only theses).
 
 The strict types mode can be activated on a per-file basis by adding the `declare(strict_types=1);` directive as the very first line in the file after the PHP opening tag.
 
 All it does is prevents type juggling:  
 
 - for function calls that **happens** in that file, no matter where the function is declared (in the core, in extensions or any other userland script)
-- and for returned values of functions **declared** in that file
+- for returned values of functions **declared** in that file
+- for assignement to typed class properties that **happens** in that file, no matter where the class is defined
 
-Any need for type juggling in such places in file that have that directive will throw a `TypeError`, with one exception: juggling from `int` to `float` is always allowed.
+Any need for type juggling in such places in file that have that directive will throw a `TypeError`, with one exception: **juggling from `int` to `float` is always allowed**.
 
 Examples:
 ```php

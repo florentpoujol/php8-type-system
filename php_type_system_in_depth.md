@@ -53,7 +53,7 @@ Also, the type of the value can often be automatically **casted** (changed from 
 
 ## Typehint syntax
 
-Typing in PHP is done by using a set of keywords called **typehints** to tell PHP, static analysis tools and also humans of which type the value (of an argument for instance) should be.  
+Type declaration in PHP is done by using a set of keywords called **typehints** to tell PHP, static analysis tools and also humans of which type the value (of an argument for instance) should be.  
 
 When the type assigned to the argument is not the same as the one of the typehint, PHP will try to convert it, or throw a type error if it can not, *or is not allowed to*.
 

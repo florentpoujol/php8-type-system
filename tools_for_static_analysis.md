@@ -8,7 +8,7 @@
 	- [Custom PHPDoc types](#custom-phpdoc-types)
 	- [Generics](#generics)
 	- [PHPStan](#phpstan)
-- [Tools to helps with PHPDocs and type declarations](#tools-to-helps-with-phpdocs-and-type declarations)
+- [Tools to helps with PHPDocs and type declarations](#tools-to-helps-with-phpdocs-and-type-declarations)
 	- [PHP CS Fixer](#php-cs-fixer)
 	- [Rector](#rector)
 	- [Runtime assertions](#runtime-assertions)

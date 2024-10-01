@@ -78,14 +78,15 @@ PHP has a fixed number of built-in types, of which most of them have matching ty
 There is also some more compound type declarations, that match several types at the same time.  
 Finally, you can not create custom type declarations, but every interface and class names can also be used as type declaration.
 
-In PHP, type declarations can only be defined in three places:
+In PHP, type declarations can only be defined in four places:
 - on a property of a class, trait, or interface (only since 7.4)
 - on arguments of a function
 - on the returned value of a function
+- on a class constant (since 8.3)
 
 Here, "function" refers to regular named functions, both long and short closures (anonymous functions) as well as methods of a class.
 
-So it is not possible to specify the type of a simple variable, or a constant. Theses are always inferred from the assigned value.
+So it is not possible to specify the type of a simple variable. Theses are always inferred from the assigned value.  
 
 Type declarations for properties and arguments are defined with a keyword that must precede the property or argument variable definition.
 
@@ -246,9 +247,9 @@ final class foo
 }
 ```
 
-**`false`**: a pseudo type that can only be used as part of a union and is non-nullable, as the PHP manual explain it mostly exists for internal usage and has no `true` counterpart.
+Since PHP8.2, `null` can also be on its own as a return type.
 
-PHPStan on the other hand understand the false/true PHPDocs for the situations where you know the value expected or returned is either of theses.
+**`false`** and **`true`**: (`false` existed before but `true` has been added in PHP8.2) both can be used on their own as a method return type.
 
 **`object`**, **`self`**, **`parent`**, any class/interface name: See more info in the [objects chapter](#objects).
 

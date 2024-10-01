@@ -63,6 +63,14 @@ Here are the types-related RFCs:
 - Pure Intersection types: https://wiki.php.net/rfc/pure-intersection-types
 - Never typehint: https://wiki.php.net/rfc/noreturn_type
 
+### PHP8.2 (december 2022)
+
+- Disjunctive Normal Form (DNF) Types: https://wiki.php.net/rfc/dnf_types
+- Allow `null`, `false`, and `true` as stand-alone types: https://wiki.php.net/rfc/null-false-standalone-types
+
+### PHP8.3 (november 2023)
+
+- Typed class constants: https://wiki.php.net/rfc/typed_class_constants
 
 ## Articles
 
@@ -71,18 +79,20 @@ Here are the types-related RFCs:
 
 ### Generics
 
+- (09/2024) [A comprehensive overview](https://thephp.foundation/blog/2024/08/19/state-of-generics-and-collections/) of what generics could be in PHP, by developers of the PHP Foundation
 - [Generics in PHP using PHPDocs, in PHPStan's blog (from 2019)](https://phpstan.org/blog/generics-in-php-using-phpdocs) 
 - [Template annotation, in Psalm documentation](https://psalm.dev/docs/annotating_code/templated_annotations) 
 - https://wiki.php.net/rfc/generics
 - https://wiki.php.net/rfc/generic-arrays
-- https://externals.io/message/111875 A message from Brent Roose to the PHP core developper advocating for runtime-erased generics
+- https://externals.io/message/111875 A message from Brent Roose to the PHP core developer advocating for runtime-erased generics
 - https://www.reddit.com/r/PHP/comments/iuhtgd/ive_proposed_an_approach_to_generics_on_internals/ The same original message as above but on Reddit
 - https://github.com/PHPGenerics/php-generics-rfc/issues/45 Two comments by Nikita Popov
 - [Brent Roose Youtube video series about Generics](https://www.youtube.com/watch?v=c8hQ1fWU_mQ&list=PL0bgkxUS9EaKyOugEDffRzsvupBE2YEoD)
 
+
 ### Stitcher.io blog
 
-Brent Roose is regularly talking about PHP's type system, static analysis and advocating for a stricter PHP.
+Brent Roose was regularly talking about PHP's type system, static analysis and advocating for a stricter PHP.
 
 - 06/11/2021 https://stitcher.io/blog/generics-in-php-video
 - 26/07/2021 https://stitcher.io/blog/we-dont-need-runtime-type-checks

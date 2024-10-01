@@ -4,17 +4,17 @@ This repo contains what I hope is a decent description of all aspects of **PHP 8
 
 <br>
 
-- [PHP type system in depth](php_type_system_in_depth.md), a complete description of the type system, all typehints and related topics like casting and dealing will `null` values
+- [PHP type system in depth](php_type_system_in_depth.md), a complete description of the type system, all type declarations and related topics like casting and dealing will `null` values
 	- [Typing systems](php_type_system_in_depth.md#typing-systems)
-	- [Typehint syntax](php_type_system_in_depth.md#typehint-syntax)
-	- [Why use types ?](php_type_system_in_depth.md#why-use-types)
-	- [Built-in typehints](php_type_system_in_depth.md#built-in-typehints)
-		- [Scalar typehints](php_type_system_in_depth.md#scalar-typehints)
-		- [Compound typehints](php_type_system_in_depth.md#compound-typehints)
-		- [Return-only typehints](php_type_system_in_depth.md#return-only-typehints)
+	- [Type declaration syntax](php_type_system_in_depth.md#type-declaration-syntax)
+	- [Why use types ?](php_type_system_in_depth.md#why-use-types-why-make-your-code-stricter-)
+	- [Built-in type declarations](php_type_system_in_depth.md#built-in-type-declarations)
+		- [Scalar type declarations](php_type_system_in_depth.md#scalar-type-declarations)
+		- [Compound type declarations](php_type_system_in_depth.md#compound-type-declarations)
+		- [Return-only type declarations](php_type_system_in_depth.md#return-only-type-declarations)
 		- [Others](php_type_system_in_depth.md#others)
 	- [Objects](php_type_system_in_depth.md#objects)
-		- [Typehints](php_type_system_in_depth.md#typehints)
+		- [type declarations](php_type_system_in_depth.md#type-declarations)
 		- [Types in inheritance](php_type_system_in_depth.md#types-in-inheritance)
 		- [Classes as argument types](php_type_system_in_depth.md#classes-as-argument-types)
 		- [Classes as method return types](php_type_system_in_depth.md#classes-as-method-return-types)
@@ -36,7 +36,7 @@ This repo contains what I hope is a decent description of all aspects of **PHP 8
 		- [Custom PHPDoc types](tools_for_static_analysis.md#custom-phpdoc-types)
 		- [Generics](tools_for_static_analysis.md#generics)
 		- [PHPStan](tools_for_static_analysis.md#phpstan)
-	- [Tools to helps with PHPDocs and typehints](tools_for_static_analysis.md#tools-to-helps-with-phpdocs-and-typehints)
+	- [Tools to helps with PHPDocs and type declarations](tools_for_static_analysis.md#tools-to-helps-with-phpdocs-and-type-declarations)
 		- [PHP CS Fixer](tools_for_static_analysis.md#php-cs-fixer)
 		- [Rector](tools_for_static_analysis.md#rector)
 		- [Runtime assertions](tools_for_static_analysis.md#runtime-assertions)

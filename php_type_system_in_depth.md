@@ -4,7 +4,7 @@
 
 - [Typing systems](#typing-systems)
 - [type declaration syntax](#type-declaration-syntax)
-- [Why use types ?](#why-use-types)
+- [Why use types ?](#why-use-types-why-make-your-code-stricter-)
 - [Built-in type declarations](#built-in-type-declarations)
 	- [Scalar type declarations](#scalar-type-declarations)
 	- [Compound type declarations](#compound-type-declarations)

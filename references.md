@@ -1,6 +1,6 @@
 
 
-- Main PHP webiste: https://www.php.net/
+- Main PHP website: https://www.php.net/
 - PHP manual and function reference: https://www.php.net/manual/en/ (also fully available in several other languages)
 - Language specification about types: https://github.com/php/php-langspec/blob/be010b4435e7b0801737bb66b5bbdd8f9fb51dde/spec/05-types.md
 
@@ -15,9 +15,9 @@
 
 ## RFCs
 
-RFC are Request For Comments, documents that needs to be written by PHP core developpers to propose a non-trivial change to PHP.
+RFC are Request For Comments, documents that needs to be written by PHP core developers to propose a non-trivial change to PHP.
 
-They explain why the new features is needed, give examples, and all pertinent informations.
+They explain why the new features is needed, give examples, and all pertinent information.
 
 Here are the types-related RFCs:
 
@@ -82,7 +82,7 @@ Here are the types-related RFCs:
 
 ### Stitcher.io blog
 
-Brent Roose is regularly tallking about PHP's type system, static analysis and abvocating for a stricter PHP.
+Brent Roose is regularly talking about PHP's type system, static analysis and advocating for a stricter PHP.
 
 - 06/11/2021 https://stitcher.io/blog/generics-in-php-video
 - 26/07/2021 https://stitcher.io/blog/we-dont-need-runtime-type-checks

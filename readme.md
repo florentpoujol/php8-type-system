@@ -1,6 +1,6 @@
 # PHP 8 type system in-depth, and tools for static analysis
 
-This repo contains what I hope is a decent description of all aspects of **PHP 8.1+ type system**, the community tools to help work with typehints and PHPDocs as well as the **static analysers** that rely on the type system to find inconsistencies and bugs in your programs.
+This repo contains what I hope is a decent description of all aspects of **PHP 8.1+ type system**, the community tools to help work with type declarations and PHPDocs as well as the **static analysers** that rely on the type system to find inconsistencies and bugs in your programs.
 
 <br>
 
